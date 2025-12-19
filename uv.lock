@@ -13,12 +13,14 @@ source = { virtual = "." }
 dependencies = [
     { name = "alpaca-py" },
     { name = "dotenv" },
+    { name = "pandas" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "alpaca-py", specifier = ">=0.42.1" },
     { name = "dotenv", specifier = ">=0.9.9" },
+    { name = "pandas", specifier = ">=2.0.0" },
 ]
 
 [[package]]
