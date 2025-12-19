@@ -11,6 +11,12 @@ A Python application for streaming real-time market data from Alpaca Markets API
 - Orderbook data streaming
 - Support for multiple crypto pairs (BTC/USD, ETH/USD)
 
+### Historical Cryptocurrency Data
+- Fetch historical cryptocurrency pricing data
+- Support for multiple timeframes (minute, hour, day, week, month)
+- CSV export functionality
+- Automatic rate limit handling
+
 ### News Data Streaming
 - Real-time news article streaming
 - Support for symbol-specific or global news
@@ -53,6 +59,47 @@ python main.py
 ```
 
 The application will subscribe to various data streams for BTC/USD and ETH/USD and print the data as it arrives.
+
+### Historical Cryptocurrency Data
+
+Fetch historical cryptocurrency pricing data and export to CSV:
+
+```bash
+python get_historical_crypto.py --symbol BTC/USD --start 2024-01-01 --end 2024-01-31 --granularity day
+```
+
+**Required Arguments:**
+- `--symbol`: Cryptocurrency symbol (e.g., `BTC/USD`, `ETH/USD`)
+- `--start`: Start date in YYYY-MM-DD format
+- `--end`: End date in YYYY-MM-DD format
+- `--granularity`: Time granularity (`minute`, `hour`, `day`, `week`, `month`)
+
+**Optional Arguments:**
+- `--output`: Custom output CSV filename (default: `{symbol}_{granularity}_{start}_{end}.csv`)
+- `--rate-limit-delay`: Delay in seconds between API requests (default: 0.4)
+
+**Examples:**
+
+Fetch daily Bitcoin data for January 2024:
+```bash
+python get_historical_crypto.py --symbol BTC/USD --start 2024-01-01 --end 2024-01-31 --granularity day
+```
+
+Fetch hourly Ethereum data for the entire year with custom output file:
+```bash
+python get_historical_crypto.py --symbol ETH/USD --start 2024-01-01 --end 2024-12-31 --granularity hour --output eth_hourly_2024.csv
+```
+
+Fetch minute-level data with custom rate limiting:
+```bash
+python get_historical_crypto.py --symbol BTC/USD --start 2024-01-01 --end 2024-01-07 --granularity minute --rate-limit-delay 0.5
+```
+
+**Features:**
+- Automatic pagination for large date ranges
+- Rate limit handling (respects Alpaca's 200 requests/minute limit)
+- Standard OHLCV CSV format (timestamp, open, high, low, close, volume)
+- Handles API errors gracefully with retry logic
 
 ### News Data Streams
 
@@ -136,6 +183,7 @@ You can uncomment different examples in the `main()` function to try each one.
 ## Project Structure
 
 - `main.py` - Cryptocurrency data streaming application
+- `get_historical_crypto.py` - Historical cryptocurrency data fetcher with CSV export
 - `news_stream.py` - Basic news streaming for specific symbols
 - `news_stream_advanced.py` - Advanced news streaming with logging
 - `news_stream_filtered.py` - News streaming with filtering capabilities
@@ -150,6 +198,7 @@ You can uncomment different examples in the `main()` function to try each one.
 
 - `alpaca-py` - Official Alpaca Markets Python SDK
 - `python-dotenv` - Environment variable management
+- `pandas` - Data manipulation and CSV export (for historical data)
 
 ## License
 
