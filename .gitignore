@@ -11,3 +11,8 @@ wheels/
 
 # Environment variables
 .env
+
+# Output files
+*.jsonl
+news_feed.jsonl
+filtered_news.jsonl
